@@ -9,6 +9,11 @@
   <p>朱正的第一个物联网平台 </p>
   <p>这是一个测试页面</p>
   <h1>欢迎访问我的网站</h1>
+  <h2>实时随机数：</h2>
+<p>A：<span id="rand-a">--</span></p>
+<p>B：<span id="rand-b">--</span></p>
+<p>C：<span id="rand-c">--</span></p>
+
   <p>当前时间是：<span id="local-time">加载中...</span></p>
   
   <script>
@@ -24,6 +29,25 @@
   
       document.getElementById("local-time").textContent = timeStr;
     }
+    function updateRandomNumbers(
+) {
+  fetch('/data'
+)
+    .
+then(res => res.json
+())
+    .
+then(data
+ => {
+      document.getElementById('rand-a').textContent = data.a
+;
+      document.getElementById('rand-b').textContent = data.b
+;
+      document.getElementById('rand-c').textContent = data.c
+;
+    });
+}
+
   
     // 初始化时更新一次
     updateTime();
