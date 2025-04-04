@@ -1,20 +1,21 @@
-from flask import Flask, render_template, jsonify
-import random
+from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
+latest_data = {'a': '--', 'b': '--', 'c': '--'}
 
-@app.route("/")
+@app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template('index.html')
 
-@app.route("/data")
+@app.route('/data')
 def get_data():
-    # 一次返回多个随机数
-    return jsonify({
-        'a': random.randint(1, 100),
-        'b': random.randint(101, 200),
-        'c': random.randint(201, 300)
-    })
+    return jsonify(latest_data)
 
-if __name__ == "__main__":
+@app.route('/update', methods=['POST'])
+def update_data():
+    global latest_data
+    latest_data = request.get_json()
+    return jsonify({'status': 'success'})
+
+if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
