@@ -17,44 +17,31 @@
   <p>当前时间是：<span id="local-time">加载中...</span></p>
   
   <script>
+    function updateRandomNumbers() {
+      fetch('/data')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('rand-a').textContent = data.a;
+          document.getElementById('rand-b').textContent = data.b;
+          document.getElementById('rand-c').textContent = data.c;
+        });
+    }
+    
     function updateTime() {
       const now = new Date();
-      const timeStr =
-        now.getFullYear() + '-' +
+      const timeStr = now.getFullYear() + '-' +
         String(now.getMonth() + 1).padStart(2, '0') + '-' +
         String(now.getDate()).padStart(2, '0') + ' ' +
         String(now.getHours()).padStart(2, '0') + ':' +
         String(now.getMinutes()).padStart(2, '0') + ':' +
         String(now.getSeconds()).padStart(2, '0');
-  
-      document.getElementById("local-time").textContent = timeStr;
+      document.getElementById('local-time').textContent = timeStr;
     }
-    function updateRandomNumbers(
-) {
-  fetch('/data'
-)
-    .
-then(res => res.json
-())
-    .
-then(data
- => {
-      document.getElementById('rand-a').textContent = data.a
-;
-      document.getElementById('rand-b').textContent = data.b
-;
-      document.getElementById('rand-c').textContent = data.c
-;
-    });
-}
-
-  
-    // 初始化时更新一次
-    updateTime();
-  
-    // 每秒更新一次
+    
+    setInterval(updateRandomNumbers, 1000);
     setInterval(updateTime, 1000);
-  </script>
+    </script>
+    
   
 
 
